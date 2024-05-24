@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "925106320602",
+    "project_id": "law1912-flutter-course-fcc",
+    "storage_bucket": "law1912-flutter-course-fcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925106320602:android:f68fd04e506814f41121e3",
+        "android_client_info": {
+          "package_name": "com.example.free_code_camp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt20-0wQw8xel43DeEX9GQSiBiz0SrCSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
