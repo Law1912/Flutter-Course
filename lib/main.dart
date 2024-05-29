@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:free_code_camp/constants.dart';
 import 'package:free_code_camp/services/auth/auth_service.dart';
 import 'package:free_code_camp/views/login_view.dart';
-import 'package:free_code_camp/views/notes_view.dart';
+import 'package:free_code_camp/views/notes/new_note_view.dart';
+import 'package:free_code_camp/views/notes/notes_view.dart';
 import 'package:free_code_camp/views/register_view.dart';
 import 'package:free_code_camp/views/verify_email_view.dart';
 
@@ -24,6 +25,7 @@ void main() {
       registerRoute: (context) => const RegisterView(),
       notesRoute: (context) => const NotesView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
+      newNoteRoute: (context) => const NewNoteView(),
     },
   ));
 }
