@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:free_code_camp/constants.dart';
 import 'package:free_code_camp/services/auth/auth_service.dart';
 import 'package:free_code_camp/views/login_view.dart';
-import 'package:free_code_camp/views/notes/new_note_view.dart';
+import 'package:free_code_camp/views/notes/create_update_note_view.dart';
 import 'package:free_code_camp/views/notes/notes_view.dart';
 import 'package:free_code_camp/views/register_view.dart';
 import 'package:free_code_camp/views/verify_email_view.dart';
-
-import 'firebase_options.dart';
-import 'dart:developer' as devtools show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +22,7 @@ void main() {
       registerRoute: (context) => const RegisterView(),
       notesRoute: (context) => const NotesView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
-      newNoteRoute: (context) => const NewNoteView(),
+      createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
     },
   ));
 }
@@ -56,27 +53,4 @@ class HomePage extends StatelessWidget {
       },
     );
   }
-}
-
-Future<bool> showLogOutDialog(BuildContext context) {
-  return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Sign out?'),
-          content: const Text('Are you sure you want to sign out?'),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
-                child: const Text('Cancel')),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: const Text('Log out')),
-          ],
-        );
-      }).then((value) => value ?? false);
 }

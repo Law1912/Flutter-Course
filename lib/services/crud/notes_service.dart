@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:free_code_camp/services/crud/crud_exceptions.dart';
 import 'package:sqflite/sqflite.dart';
@@ -50,7 +49,6 @@ class NotesService {
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-
     await getNote(id: note.id);
 
     final updatesCount = await db.update(noteTable, {
@@ -87,7 +85,7 @@ class NotesService {
       whereArgs: [id],
     );
 
-    if (notes.isNotEmpty) {
+    if (notes.isEmpty) {
       throw CouldNotFindNote();
     } else {
       final note = DatabaseNote.fromRow(notes.first);
@@ -231,8 +229,14 @@ class NotesService {
       throw DatabaseAlreadyOpenException();
     }
     try {
-      final docsPath = await getApplicationDocumentsDirectory();
-      final dbPath = join(docsPath.path, dbName);
+      late final docsPath;
+      if (kIsWeb) {
+        docsPath = 'E:\\sum\\Flutter-Course\\lib\\services\\crud\\';
+      } else {
+        final doc = await getApplicationDocumentsDirectory();
+        docsPath = doc.path;
+      }
+      final dbPath = join(docsPath, dbName);
       final db = await openDatabase(dbPath);
       _db = db;
       await db.execute(createUserTable);
@@ -288,7 +292,7 @@ class DatabaseNote {
             (map[isSyncedWithCloudColumn] as int) == 1 ? true : false;
 
   @override
-  String toString() => 'Note [$id][$userId][$isSyncedWithCloud]\n$text';
+  String toString() => 'Note [$id][$userId][$isSyncedWithCloud]$text';
 
   @override
   bool operator ==(covariant DatabaseUser other) => id == other.id;

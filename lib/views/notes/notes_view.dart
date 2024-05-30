@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:free_code_camp/constants.dart';
 import 'package:free_code_camp/enums/menu_action.dart';
-import 'package:free_code_camp/main.dart';
 import 'package:free_code_camp/services/auth/auth_service.dart';
 import 'package:free_code_camp/services/crud/notes_service.dart';
+import 'package:free_code_camp/utitlites/dialogs/logout_dialog.dart';
+import 'package:free_code_camp/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -29,10 +30,11 @@ class _NotesViewState extends State<NotesView> {
         title: const Text('Your NOTES'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(newNoteRoute);
-              },
-              icon: const Icon(Icons.add)),
+            onPressed: () {
+              Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
+            },
+            icon: const Icon(Icons.add),
+          ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -71,17 +73,15 @@ class _NotesViewState extends State<NotesView> {
                     case ConnectionState.active:
                       if (snapshot.hasData) {
                         final allNotes = snapshot.data as List<DatabaseNote>;
-                        return ListView.builder(
-                          itemCount: allNotes.length,
-                          itemBuilder: (context, index) {
-                            final note = allNotes[index];
-                            return ListTile(
-                              title: Text(
-                                note.text,
-                                maxLines: 2,
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                        return NotesListView(
+                          notes: allNotes,
+                          onDeleteNote: (note) async {
+                            await _notesService.deleteNote(id: note.id);
+                          },
+                          onTap: (note) {
+                            Navigator.of(context).pushNamed(
+                              createOrUpdateNoteRoute,
+                              arguments: note,
                             );
                           },
                         );
