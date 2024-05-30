@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:free_code_camp/services/auth/auth_exceptions.dart';
 import 'package:free_code_camp/services/auth/auth_provider.dart';
 import 'package:free_code_camp/services/auth/auth_user.dart';
@@ -133,6 +131,7 @@ class MockAuthProvider implements AuthProvider {
     if (email == 'foo@bar.com') throw UserNotFoundAuthException();
     if (password == 'foobar') throw WrongPasswordAuthException();
     const user = AuthUser(
+      id: 'my_id',
       isEmailVerified: false,
       email: 'foo@bar.com',
     );
@@ -154,6 +153,7 @@ class MockAuthProvider implements AuthProvider {
     final user = _user;
     if (user == null) throw UserNotFoundAuthException();
     const newUser = AuthUser(
+      id: 'my_id',
       isEmailVerified: true,
       email: 'foo@bar.com',
     );
